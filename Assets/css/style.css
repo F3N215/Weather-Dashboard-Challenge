@@ -1,0 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    background-color: rgb(13, 83, 12);
+}
+
+#header {
+    color: white;
+    background-color: rgb(13, 83, 12);
+}
+
+#header h1 {
+    font-size: xx-large;
+    text-align: center;
+    font-weight: bold;
+}
