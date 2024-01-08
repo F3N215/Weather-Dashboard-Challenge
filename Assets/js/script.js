@@ -27,6 +27,11 @@ var getCurrentConditions = (event) => {
 
         let currentWeatherIcon="https://openweathermap.org/img/w/" + response.weahter[0].icon + ".png";
 
+        let currentTimeUTC = response.dt;
+        let currentTimeZoneOffset = response.timezone;
+        let currentTimeZoneOffsetHours = currentTimeZoneOffset / 60 / 60;
+        let currentMoment = moment.unix(currentTimeUTC).utc().utcOffset(currentTimeZoneOffsetHours);
+
 
     }
 }
