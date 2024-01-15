@@ -2,6 +2,7 @@ var owmAPI = "0ef465a588f6128c27d826989d773558";
 var currentCity = "";
 var lastCity = "";
 
+// error handling from MDN
 var showError = (response) => {
     if (!response.ok) {
         throw Error(response.statusText);
@@ -14,6 +15,7 @@ var getCurrentConditions = (event) => {
     let city = $('search-city').val(); // pulls city name from search box
     currentCity = $('search-city').val();
 
+    // get city name from search box 
     let searchURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=" + owmAPI;
     fetch(searchURL)
     .then(showError)
