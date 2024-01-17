@@ -59,7 +59,12 @@ var getFiveDayForecast = (event) => {
             return esponse.json();
         })
         .then((response) => {
-        
+            
+        // this creates an HTML template    
+        let fiveDayForecast = ` 
+        <h2>5 Day Forecast:</h2>
+        <div id=fiveDayForecastUl" class=d-inline-flex flex-wrap ">`;
+
             
         })
 }
