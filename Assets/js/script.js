@@ -15,10 +15,10 @@ var getCurrentConditions = (event) => {
     let city = $('search-city').val(); // pulls city name from search box
     currentCity = $('search-city').val();
 
-    let searchURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=" + owmAPI;
-    fetch(searchURL)
-    .then(showError)
-    .then((response) = {
+    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=" + owmAPI;
+    fetch(queryURL)
+    .then(handleErrors)
+    .then((response) => {
         return response.json();
     })
     .then((response) => {
@@ -59,7 +59,7 @@ var getFiveDayForecast = (event) => {
             return esponse.json();
         })
         .then((response) => {
-            
+
         // this creates an HTML template    
         let fiveDayForecast = ` 
         <h2>5 Day Forecast:</h2>
