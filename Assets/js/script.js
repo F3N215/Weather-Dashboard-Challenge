@@ -39,6 +39,7 @@ var getCurrentConditions = (event) => {
 
         $('#header-text').text(response.name);
 
+        // creates results in html from search
         let currentWeatherHTML = `
             <h3>{response.name} ${currentMoment.format("(MM/DD/YY)")}<img src=${currentWeatherIcon}"></h3>
             <ul class="list-unstyled">
@@ -74,3 +75,18 @@ var getFiveDayForecast = (event) => {
 
     }
 }
+//  search button event listener
+$('#search-button').on("click", (event) => {
+    event.preventDefault();
+    currentCity = $('#search-city').val();
+    getCurrentConditions(event);
+    });
+    
+    // previous cities buttons event listener
+    $('#city-results').on("click", (event) => {
+        event.preventDefault();
+        $('#search-city').val(event.target.textContent);
+        currentCity=$('#search-city').val();
+        getCurrentConditions(event);
+    });
+    
