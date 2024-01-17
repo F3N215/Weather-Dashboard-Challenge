@@ -16,3 +16,23 @@
     text-align: center;
     font-weight: bold;
 }
+
+.bigwide {
+    padding: 1rem;
+}
+
+#labelFont {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+#search-city {
+    width: 100%;
+}
+
+#search-button {
+    width: 100%;
+    margin-top: 1em;
+    background-color: #f35fc7;
+    border-color: black;
+}
