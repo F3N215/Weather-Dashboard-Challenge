@@ -50,6 +50,20 @@ var getCurrentConditions = (event) => {
     })
 }
 
+var getFiveDayForecast = (event) => {
+    let city = $('#search-city').val();
+    let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=metric" + "&APPID=" + owmAPI;
+    fetch(queryURL)
+        .then (showError)
+        .then((response) => {
+            return esponse.json();
+        })
+        .then((response) => {
+        
+            
+        })
+}
+
         
 
 
