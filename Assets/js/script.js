@@ -89,4 +89,15 @@ $('#search-button').on("click", (event) => {
         currentCity=$('#search-city').val();
         getCurrentConditions(event);
     });
-    
+
+        // clear old searches cities from localStorage event listener
+        $("#clear-storage").on("click", (event) => {
+            localStorage.clear();
+            renderCities();
+        });
+        
+        // render the searched cities function
+        renderCities();
+        
+        // calls 5 day forecast
+        getCurrentConditions();
