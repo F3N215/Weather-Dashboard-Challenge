@@ -14,6 +14,7 @@ const owmAPI = "0ef465a588f6128c27d826989d773558"
 //     return response;
 // }
 
+// weather card html creation
 const createWeatherCard = (cityName, weatherItem, index) => {
     if(index === 0) {
         return `<div class="mt-3 d-flex justify-content-between">
@@ -43,6 +44,7 @@ const createWeatherCard = (cityName, weatherItem, index) => {
     }
 }
 
+// fetch weather details using lat/long data
 const getWeatherDetails = (cityName, latitude, longitude) => {
     const weatherURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${owmAPI}`;
         fetch(weatherURL).then(response => response.json()).then(data => {
@@ -52,8 +54,24 @@ const getWeatherDetails = (cityName, latitude, longitude) => {
                 const forecastDate = new Date(forecast.dt_txt).getDate();
                 if (!uniqueForecastDays.has(forecastDate) && uniqueForecastDays.size < 6) {
                     uniqueForecastDays.add(forecastDate);
+                    return true;
                 }
-            })
+                return false;
+            });
+            
+            cityInput.value = "";
+            currentWeatherDiv.innerHTML = "";
+            daysForecastDiv.innerHTML = "";
+
+            getFiveDayForecast.forEach((weatherItem, index) => {
+                const html = createWeatherCard(cityName, weatherItem, index);
+                if (index === 0) {
+                    currentWeatherDiv.insertAdjacentElement("beforeend", html);
+                } else {
+                    daysForecastDiv.insertAdjacentHTML("beforeend", html);
+                }
+            });
+        }
 
         })
 }
