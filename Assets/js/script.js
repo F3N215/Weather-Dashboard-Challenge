@@ -1,6 +1,12 @@
-var owmAPI = "0ef465a588f6128c27d826989d773558";
-var currentCity = "";
-var lastCity = "";
+const cityInput = document.querySelector("#city-input");
+const searchButton = document.querySelector("#search-btn");
+const currentWeatherDiv = document.querySelector(".current-weather");
+const daysForecastDiv = document.querySelector(".days-forecast");
+const owmAPI = "0ef465a588f6128c27d826989d773558"
+
+// var currentCity = "";
+// var lastCity = "";
+
 
 // error handling from MDN
 var showError = (response) => {
