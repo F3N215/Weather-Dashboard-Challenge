@@ -7,14 +7,31 @@ const owmAPI = "0ef465a588f6128c27d826989d773558"
 // var currentCity = "";
 // var lastCity = "";
 
+const createWeatherCard = (cityName, weatherItem, index) => {
+    if(index === 0) {
+        return `<div class="mt-3 d-flex justify-content-between">
+            <div>
+                <h3 class="fw-bold">${cityName} (${weatherItem.det_txt.split(" ")[0]})</h3>`
+                <h6 class="my-3 mt-3">Temperature: ${((weatherItem.main.temp - 273.15).toFixed(2))}°C</h6>
+                <h6 class="my-3">Wind: ${weatherItem.wind.speed}M/S</h6>
+                <h6 class="my-3">Humidity: ${weatherItem.main.humidity}%</h6>
+            </div>
+            <div class="text-center me-lg-5">
+                <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather icon"></img>
+                <h6>${weatherItem.weather[0].description}</h6>
+            </div>
+
+    }
+}
+
 
 // error handling from MDN
-var showError = (response) => {
-    if (!response.ok) {
-        throw Error(response.statusText);
-    }
-    return response;
-}
+// var showError = (response) => {
+//     if (!response.ok) {
+//         throw Error(response.statusText);
+//     }
+//     return response;
+// }
 
 // this function pulls + displays current weather conditions
 var getCurrentConditions = (event) => {
