@@ -6,6 +6,13 @@ const owmAPI = "0ef465a588f6128c27d826989d773558"
 
 // var currentCity = "";
 // var lastCity = "";
+// error handling from MDN
+// var showError = (response) => {
+//     if (!response.ok) {
+//         throw Error(response.statusText);
+//     }
+//     return response;
+// }
 
 const createWeatherCard = (cityName, weatherItem, index) => {
     if(index === 0) {
@@ -36,14 +43,22 @@ const createWeatherCard = (cityName, weatherItem, index) => {
     }
 }
 
+const getWeatherDetails = (cityName, latitude, longitude) => {
+    const weatherURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${owmAPI}`;
+        fetch(weatherURL).then(response => response.json()).then(data => {
+            const forecastArray = data.list;
+            const uniqueForecastDays = new Set();
+            const fiveDayForecast = forecastArray.filter(forecast => {
+                const forecastDate = new Date(forecast.dt_txt).getDate();
+                if (!uniqueForecastDays.has(forecastDate) && uniqueForecastDays.size < 6) {
+                    uniqueForecastDays.add(forecastDate);
+                }
+            })
 
-// error handling from MDN
-// var showError = (response) => {
-//     if (!response.ok) {
-//         throw Error(response.statusText);
-//     }
-//     return response;
-// }
+        })
+}
+
+
 
 // this function pulls + displays current weather conditions
 var getCurrentConditions = (event) => {
