@@ -10,17 +10,29 @@ const owmAPI = "0ef465a588f6128c27d826989d773558"
 const createWeatherCard = (cityName, weatherItem, index) => {
     if(index === 0) {
         return `<div class="mt-3 d-flex justify-content-between">
-            <div>
-                <h3 class="fw-bold">${cityName} (${weatherItem.det_txt.split(" ")[0]})</h3>`
-                <h6 class="my-3 mt-3">Temperature: ${((weatherItem.main.temp - 273.15).toFixed(2))}°C</h6>
-                <h6 class="my-3">Wind: ${weatherItem.wind.speed}M/S</h6>
-                <h6 class="my-3">Humidity: ${weatherItem.main.humidity}%</h6>
-            </div>
-            <div class="text-center me-lg-5">
-                <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather icon"></img>
-                <h6>${weatherItem.weather[0].description}</h6>
-            </div>
-
+                    <div>
+                        <h3 class="fw-bold">${cityName} (${weatherItem.dt_txt.split(" ")[0]})</h3>
+                        <h6 class="my-3 mt-3">Temperature: ${((weatherItem.main.temp - 273.15).toFixed(2))}°C</h6>
+                        <h6 class="my-3">Wind: ${weatherItem.wind.speed} M/S</h6>
+                        <h6 class="my-3">Humidity: ${weatherItem.main.humidity}%</h6>
+                    </div>
+                    <div class="text-center me-lg-5">
+                        <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather icon">
+                        <h6>${weatherItem.weather[0].description}</h6>
+                    </div>
+                </div>`;
+    } else {
+        return `<div class="col mb-3">
+                    <div class="card border-0 bg-secondary text-white">
+                        <div class="card-body p-3 text-white">
+                            <h5 class="card-title fw-semibold">(${weatherItem.dt_txt.split(" ")[0]})</h5>
+                            <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}.png" alt="weather icon">
+                            <h6 class="card-text my-3 mt-3">Temp: ${((weatherItem.main.temp - 273.15).toFixed(2))}°C</h6>
+                            <h6 class="card-text my-3">Wind: ${weatherItem.wind.speed} M/S</h6>
+                            <h6 class="card-text my-3">Humidity: ${weatherItem.main.humidity}%</h6>
+                        </div>
+                    </div>
+                </div>`;
     }
 }
 
