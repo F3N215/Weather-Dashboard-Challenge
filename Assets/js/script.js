@@ -1,18 +1,11 @@
 const cityInput = document.querySelector("#city-input");
-const searchButton = document.querySelector("#search-btn");
+document.addEventListener("DOMContentLoaded", function () {
+    const searchButton = document.querySelector("#search-btn");
+// const searchButton = document.querySelector("#search-btn");
 const currentWeatherDiv = document.querySelector(".current-weather");
 const daysForecastDiv = document.querySelector(".days-forecast");
-const owmAPI = "0ef465a588f6128c27d826989d773558"
 
-// var currentCity = "";
-// var lastCity = "";
-// error handling from MDN
-// var showError = (response) => {
-//     if (!response.ok) {
-//         throw Error(response.statusText);
-//     }
-//     return response;
-// }
+const owmAPI = "d1ac78b8fb3379cfa44f9cbaac23efaa";
 
 // weather card html creation
 const createWeatherCard = (cityName, weatherItem, index) => {
@@ -46,12 +39,13 @@ const createWeatherCard = (cityName, weatherItem, index) => {
 
 // fetch weather details using lat/long data
 const getWeatherDetails = (cityName, latitude, longitude) => {
-    const weatherURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${owmAPI}`;
-        
-    fetch(weatherURL).then(response => response.json()).then(data => {
+    const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${owmAPI}`;
+
+    fetch(WEATHER_API_URL).then(response => response.json()).then(data => {
         const forecastArray = data.list;
         const uniqueForecastDays = new Set();
-        const fiveDayForecast = forecastArray.filter(forecast => {
+
+        const fiveDaysForecast = forecastArray.filter(forecast => {
             const forecastDate = new Date(forecast.dt_txt).getDate();
             if (!uniqueForecastDays.has(forecastDate) && uniqueForecastDays.size < 6) {
                 uniqueForecastDays.add(forecastDate);
@@ -63,7 +57,7 @@ const getWeatherDetails = (cityName, latitude, longitude) => {
         cityInput.value = "";
         currentWeatherDiv.innerHTML = "";
         daysForecastDiv.innerHTML = "";
-            
+
         fiveDaysForecast.forEach((weatherItem, index) => {
             const html = createWeatherCard(cityName, weatherItem, index);
             if (index === 0) {
@@ -71,7 +65,7 @@ const getWeatherDetails = (cityName, latitude, longitude) => {
             } else {
                 daysForecastDiv.insertAdjacentHTML("beforeend", html);
             }
-        });           
+        });        
     }).catch(() => {
         alert("An error occurred while fetching the weather forecast!");
     });
@@ -81,9 +75,9 @@ const getWeatherDetails = (cityName, latitude, longitude) => {
 const getCityCoordinates = () => {
     const cityName = cityInput.value.trim();
     if (cityName === "") return;
-    const weatherURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${owmAPI}`;
+    const API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${owmAPI}`;
   
-    fetch(weatherURL).then(response => response.json()).then(data => {
+    fetch(API_URL).then(response => response.json()).then(data => {
         if (!data.length) return alert(`No coordinates found for ${cityName}`);
         const { lat, lon, name } = data[0];
         getWeatherDetails(name, lat, lon);
@@ -92,7 +86,11 @@ const getCityCoordinates = () => {
     });
 }
 
-searchButton.addEventListener("click", () => getCityCoordinates());
+searchButton.addEventListener("click", () => {
+        getCityCoordinates();
+    });
+});
+
 
 // this function pulls + displays current weather conditions
 
