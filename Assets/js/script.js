@@ -91,7 +91,7 @@ const getCityCoordinates = () => {
         alert("An error occurred while fetching the coordinates!");
     });
 }
-s
+
 searchButton.addEventListener("click", () => getCityCoordinates());
 
 // this function pulls + displays current weather conditions
