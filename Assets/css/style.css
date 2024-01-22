@@ -14,3 +14,33 @@
     max-width: 120px;
     margin-top: -15px;
 }
+
+.card-body {
+    background-color: #349ddf;
+    color: #ffffff; 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1.5);
+}
+
+.card-title {
+    color: #c91919; /* Set the title text color */
+}
+
+.card-text {
+    color: #ffffff; 
+}
+
+/* current-weather box */
+.current-weather {
+    background-color: #5cba72;
+}
+
+.current-weather h3 {
+    color: #ffffff;
+}
+
+/* current weather box */
+.current-weather h6 {
+    color: #ffffff;
+    font-size: 50pt;
+}
