@@ -47,33 +47,34 @@ const createWeatherCard = (cityName, weatherItem, index) => {
 // fetch weather details using lat/long data
 const getWeatherDetails = (cityName, latitude, longitude) => {
     const weatherURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${owmAPI}`;
-        fetch(weatherURL).then(response => response.json()).then(data => {
-            const forecastArray = data.list;
-            const uniqueForecastDays = new Set();
-            const fiveDayForecast = forecastArray.filter(forecast => {
-                const forecastDate = new Date(forecast.dt_txt).getDate();
-                if (!uniqueForecastDays.has(forecastDate) && uniqueForecastDays.size < 6) {
-                    uniqueForecastDays.add(forecastDate);
-                    return true;
-                }
-                return false;
-            });
-            
-            cityInput.value = "";
-            currentWeatherDiv.innerHTML = "";
-            daysForecastDiv.innerHTML = "";
-
-            getFiveDayForecast.forEach((weatherItem, index) => {
-                const html = createWeatherCard(cityName, weatherItem, index);
-                if (index === 0) {
-                    currentWeatherDiv.insertAdjacentElement("beforeend", html);
-                } else {
-                    daysForecastDiv.insertAdjacentHTML("beforeend", html);
-                }
-            });
-        }).catch(() = > {
-            alert("An error occurred while fetching the forecast!")
+        
+    fetch(weatherURL).then(response => response.json()).then(data => {
+        const forecastArray = data.list;
+        const uniqueForecastDays = new Set();
+        const fiveDayForecast = forecastArray.filter(forecast => {
+            const forecastDate = new Date(forecast.dt_txt).getDate();
+            if (!uniqueForecastDays.has(forecastDate) && uniqueForecastDays.size < 6) {
+                uniqueForecastDays.add(forecastDate);
+                return true;
+            }
+            return false;
         });
+
+        cityInput.value = "";
+        currentWeatherDiv.innerHTML = "";
+        daysForecastDiv.innerHTML = "";
+            
+        fiveDaysForecast.forEach((weatherItem, index) => {
+            const html = createWeatherCard(cityName, weatherItem, index);
+            if (index === 0) {
+                currentWeatherDiv.insertAdjacentHTML("beforeend", html);
+            } else {
+                daysForecastDiv.insertAdjacentHTML("beforeend", html);
+            }
+        });           
+    }).catch(() => {
+        alert("An error occurred while fetching the weather forecast!");
+    });
 }
 
 // Get coordinates of entered city name
@@ -90,50 +91,50 @@ const getCityCoordinates = () => {
         alert("An error occurred while fetching the coordinates!");
     });
 }
-
+s
 searchButton.addEventListener("click", () => getCityCoordinates());
 
 // this function pulls + displays current weather conditions
 
-var getCurrentConditions = (event) => {
-    let city = $('search-city').val(); // pulls city name from search box
-    currentCity = $('search-city').val();
+// var getCurrentConditions = (event) => {
+//     let city = $('search-city').val(); // pulls city name from search box
+//     currentCity = $('search-city').val();
 
-    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=" + owmAPI;
-    fetch(queryURL)
-    .then(handleErrors)
-    .then((response) => {
-        return response.json();
-    })
-    .then((response) => {
+//     let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=" + owmAPI;
+//     fetch(queryURL)
+//     .then(handleErrors)
+//     .then((response) => {
+//         return response.json();
+//     })
+//     .then((response) => {
 
-        saveCity(city);
-        $('#search-error').text("");
+//         saveCity(city);
+//         $('#search-error').text("");
 
-        let currentWeatherIcon="https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"; // creates a weather icon for current weather
+//         let currentWeatherIcon="https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"; // creates a weather icon for current weather
 
-        let currentTimeUTC = response.dt;
-        let currentTimeZoneOffset = response.timezone;
-        let currentTimeZoneOffsetHours = currentTimeZoneOffset / 60 / 60;
-        let currentMoment = moment.unix(currentTimeUTC).utc().utcOffset(currentTimeZoneOffsetHours);
+//         let currentTimeUTC = response.dt;
+//         let currentTimeZoneOffset = response.timezone;
+//         let currentTimeZoneOffsetHours = currentTimeZoneOffset / 60 / 60;
+//         let currentMoment = moment.unix(currentTimeUTC).utc().utcOffset(currentTimeZoneOffsetHours);
 
-        renderCities();
+//         renderCities();
 
-        getFiveDayForecast(event); // get 5 day forecast for current city
+//         getFiveDayForecast(event); // get 5 day forecast for current city
 
-        $('#header-text').text(response.name);
+//         $('#header-text').text(response.name);
 
-        // creates results in html from search
-        let currentWeatherHTML = `
-            <h3>{response.name} ${currentMoment.format("(MM/DD/YY)")}<img src=${currentWeatherIcon}"></h3>
-            <ul class="list-unstyled">
-                <li>Temperature: ${response.main.temp}&#x2103;</li>
-                <li>Humidity: ${response.main.humidity}%</li>
-                <li>Wind Speed: ${response.wind.speed} m/s</li>
-            </ul>`;
-        $('#current-weather').html(currentWeatherHTML);
-    })
-}
+//         // creates results in html from search
+//         let currentWeatherHTML = `
+//             <h3>{response.name} ${currentMoment.format("(MM/DD/YY)")}<img src=${currentWeatherIcon}"></h3>
+//             <ul class="list-unstyled">
+//                 <li>Temperature: ${response.main.temp}&#x2103;</li>
+//                 <li>Humidity: ${response.main.humidity}%</li>
+//                 <li>Wind Speed: ${response.wind.speed} m/s</li>
+//             </ul>`;
+//         $('#current-weather').html(currentWeatherHTML);
+//     })
+// }
 
 // //  search button event listener
 // $('#search-button').on("click", (event) => {
