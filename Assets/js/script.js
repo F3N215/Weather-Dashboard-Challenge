@@ -71,14 +71,30 @@ const getWeatherDetails = (cityName, latitude, longitude) => {
                     daysForecastDiv.insertAdjacentHTML("beforeend", html);
                 }
             });
-        }
-
-        })
+        }).catch(() = > {
+            alert("An error occurred while fetching the forecast!")
+        });
 }
 
+// Get coordinates of entered city name
+const getCityCoordinates = () => {
+    const cityName = cityInput.value.trim();
+    if (cityName === "") return;
+    const weatherURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${owmAPI}`;
+  
+    fetch(weatherURL).then(response => response.json()).then(data => {
+        if (!data.length) return alert(`No coordinates found for ${cityName}`);
+        const { lat, lon, name } = data[0];
+        getWeatherDetails(name, lat, lon);
+    }).catch(() => {
+        alert("An error occurred while fetching the coordinates!");
+    });
+}
 
+searchButton.addEventListener("click", () => getCityCoordinates());
 
 // this function pulls + displays current weather conditions
+
 var getCurrentConditions = (event) => {
     let city = $('search-city').val(); // pulls city name from search box
     currentCity = $('search-city').val();
@@ -119,53 +135,29 @@ var getCurrentConditions = (event) => {
     })
 }
 
-var getFiveDayForecast = (event) => {
-    let city = $('#search-city').val();
-    let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=metric" + "&APPID=" + owmAPI;
-    fetch(queryURL)
-        .then (showError)
-        .then((response) => {
-            return esponse.json();
-        })
-        .then((response) => {
-
-        // this creates an HTML template    
-        let fiveDayForecast = ` 
-        <h2>5 Day Forecast:</h2>
-        <div id=fiveDayForecastUl" class=d-inline-flex flex-wrap ">`;
-
-            
-        })
-}
-
-        
-
-
-    }
-}
-//  search button event listener
-$('#search-button').on("click", (event) => {
-    event.preventDefault();
-    currentCity = $('#search-city').val();
-    getCurrentConditions(event);
-    });
+// //  search button event listener
+// $('#search-button').on("click", (event) => {
+//     event.preventDefault();
+//     currentCity = $('#search-city').val();
+//     getCurrentConditions(event);
+//     });
     
-    // previous cities buttons event listener
-    $('#city-results').on("click", (event) => {
-        event.preventDefault();
-        $('#search-city').val(event.target.textContent);
-        currentCity=$('#search-city').val();
-        getCurrentConditions(event);
-    });
+//     // previous cities buttons event listener
+//     $('#city-results').on("click", (event) => {
+//         event.preventDefault();
+//         $('#search-city').val(event.target.textContent);
+//         currentCity=$('#search-city').val();
+//         getCurrentConditions(event);
+//     });
 
-        // clear old searches cities from localStorage event listener
-        $("#clear-storage").on("click", (event) => {
-            localStorage.clear();
-            renderCities();
-        });
+//         // clear old searches cities from localStorage event listener
+//         $("#clear-storage").on("click", (event) => {
+//             localStorage.clear();
+//             renderCities();
+//         });
         
-        // render the searched cities function
-        renderCities();
+//         // render the searched cities function
+//         renderCities();
         
-        // calls 5 day forecast
-        getCurrentConditions();
+//         // calls 5 day forecast
+//         getCurrentConditions();
