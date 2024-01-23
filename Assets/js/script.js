@@ -89,22 +89,3 @@ document.addEventListener("DOMContentLoaded", function () {
             getCityCoordinates();
         });
     });
-
-// save the city to localStorage
-var saveCity = (newCity) => {
-    let cityExists = false;
-
-    // check if city exists in local storage
-    for (let i = 0; i < localStorage.length; i++) {
-        if (localStorage["cities" + i] === newCity) {
-            cityExists = true;
-            break;
-        }
-    }
-
-    // save if city is new
-    if (cityExists === false) {
-        localStorage.setItem('cities' + localStorage.length, newCity);
-    }
-}
-
