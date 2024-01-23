@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-// Get coordinates of entered city name
+// get city coordinates
     const getCityCoordinates = () => {
         const cityName = cityInput.value.trim();
         if (cityName === "") return;
@@ -90,11 +90,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-// Function to save the city to localStorage
+// save the city to localStorage
 var saveCity = (newCity) => {
     let cityExists = false;
 
-    // Check if City exists in local storage
+    // check if city exists in local storage
     for (let i = 0; i < localStorage.length; i++) {
         if (localStorage["cities" + i] === newCity) {
             cityExists = true;
@@ -102,7 +102,7 @@ var saveCity = (newCity) => {
         }
     }
 
-    // Save to localStorage if city is new
+    // save if city is new
     if (cityExists === false) {
         localStorage.setItem('cities' + localStorage.length, newCity);
     }
