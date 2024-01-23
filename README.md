@@ -31,8 +31,6 @@
 # Collaboration Workflow 🦾
 * After reviewing some of my work with my mentor who helped further my understanding, I reworked the JavaScript to “clean it up”
 * Requested information details from Xpert Learning Assistant for assistance on proper syntax and understanding logic behind the code
-* Connected with my colleague Sahil for an all-day study session to test various updates and share ideas
-* Completed 2nd tutoring session requesting additional explanations and details of JavaScript logic and flow
 * Finally, reviewed additional JavaScript course materials and connected a final time with my mentor
 
 -----
