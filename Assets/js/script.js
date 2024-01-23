@@ -38,13 +38,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // fetch weather details using lat/long data
     const getWeatherDetails = (cityName, latitude, longitude) => {
-        const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${owmAPI}`;
+        const weatherURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${owmAPI}`;
 
-        fetch(WEATHER_API_URL).then(response => response.json()).then(data => {
+        fetch(weatherURL).then(response => response.json()).then(data => {
             const forecastArray = data.list;
             const uniqueForecastDays = new Set();
 
-            const fiveDaysForecast = forecastArray.filter(forecast => {
+            const fiveDayForecast = forecastArray.filter(forecast => {
                 const forecastDate = new Date(forecast.dt_txt).getDate();
                 if (!uniqueForecastDays.has(forecastDate) && uniqueForecastDays.size < 6) {
                     uniqueForecastDays.add(forecastDate);
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
             currentWeatherDiv.innerHTML = "";
             daysForecastDiv.innerHTML = "";
 
-            fiveDaysForecast.forEach((weatherItem, index) => {
+            fiveDayForecast.forEach((weatherItem, index) => {
                 const html = createWeatherCard(cityName, weatherItem, index);
                 if (index === 0) {
                     currentWeatherDiv.insertAdjacentHTML("beforeend", html);
@@ -90,71 +90,21 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-// this function pulls + displays current weather conditions
+// Function to save the city to localStorage
+var saveCity = (newCity) => {
+    let cityExists = false;
 
-// var getCurrentConditions = (event) => {
-//     let city = $('search-city').val(); // pulls city name from search box
-//     currentCity = $('search-city').val();
+    // Check if City exists in local storage
+    for (let i = 0; i < localStorage.length; i++) {
+        if (localStorage["cities" + i] === newCity) {
+            cityExists = true;
+            break;
+        }
+    }
 
-//     let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=" + owmAPI;
-//     fetch(queryURL)
-//     .then(handleErrors)
-//     .then((response) => {
-//         return response.json();
-//     })
-//     .then((response) => {
+    // Save to localStorage if city is new
+    if (cityExists === false) {
+        localStorage.setItem('cities' + localStorage.length, newCity);
+    }
+}
 
-//         saveCity(city);
-//         $('#search-error').text("");
-
-//         let currentWeatherIcon="https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"; // creates a weather icon for current weather
-
-//         let currentTimeUTC = response.dt;
-//         let currentTimeZoneOffset = response.timezone;
-//         let currentTimeZoneOffsetHours = currentTimeZoneOffset / 60 / 60;
-//         let currentMoment = moment.unix(currentTimeUTC).utc().utcOffset(currentTimeZoneOffsetHours);
-
-//         renderCities();
-
-//         getFiveDayForecast(event); // get 5 day forecast for current city
-
-//         $('#header-text').text(response.name);
-
-//         // creates results in html from search
-//         let currentWeatherHTML = `
-//             <h3>{response.name} ${currentMoment.format("(MM/DD/YY)")}<img src=${currentWeatherIcon}"></h3>
-//             <ul class="list-unstyled">
-//                 <li>Temperature: ${response.main.temp}&#x2103;</li>
-//                 <li>Humidity: ${response.main.humidity}%</li>
-//                 <li>Wind Speed: ${response.wind.speed} m/s</li>
-//             </ul>`;
-//         $('#current-weather').html(currentWeatherHTML);
-//     })
-// }
-
-// //  search button event listener
-// $('#search-button').on("click", (event) => {
-//     event.preventDefault();
-//     currentCity = $('#search-city').val();
-//     getCurrentConditions(event);
-//     });
-    
-//     // previous cities buttons event listener
-//     $('#city-results').on("click", (event) => {
-//         event.preventDefault();
-//         $('#search-city').val(event.target.textContent);
-//         currentCity=$('#search-city').val();
-//         getCurrentConditions(event);
-//     });
-
-//         // clear old searches cities from localStorage event listener
-//         $("#clear-storage").on("click", (event) => {
-//             localStorage.clear();
-//             renderCities();
-//         });
-        
-//         // render the searched cities function
-//         renderCities();
-        
-//         // calls 5 day forecast
-//         getCurrentConditions();
