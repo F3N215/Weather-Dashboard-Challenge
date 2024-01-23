@@ -1,15 +1,21 @@
-/* *{
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    box-sizing: border-box;
-    background-color: whitesmoke;
-} */
-
 * {
     font-family: 'Open Sans', sans-serif;
 }
-  
+
+header.bg-success.text-center.py-3 {
+    background-color: #006fb4 !important;
+}
+
+#search-btn {
+    background-color: #006fb4;
+    border-radius: 5px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 2.5);
+}
+
+.current-weather.bg-success.text-white {
+    background-color: #006fb4 !important;
+}
+
 .current-weather img {
     max-width: 120px;
     margin-top: -15px;
@@ -18,25 +24,19 @@
 .card-body {
     background-color: #349ddf;
     color: #ffffff; 
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 1.5);
-}
-
-.card-title {
-    color: #c91919; /* Set the title text color */
+    border-radius: 5px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 2.5);
 }
 
 .card-text {
     color: #ffffff; 
 }
 
-/* current-weather box */
-.current-weather {
-    background-color: #5cba72;
-}
-
-.current-weather h3 {
+.current-weather.bg-success {
     color: #ffffff;
+    background-color: #349ddf !important;
+    border-radius: 5px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 2.5);
 }
 
 /* current weather box */
