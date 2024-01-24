@@ -1,16 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // fully load HTML first
+
   const cityInput = document.querySelector("#city-input");
   const searchButton = document.querySelector("#search-btn");
   const currentWeatherDiv = document.querySelector(".current-weather");
   const daysForecastDiv = document.querySelector(".days-forecast");
-
   const owmAPI = "0ef465a588f6128c27d826989d773558";
 
-  // weather card html creation
+  // weather card html creation (bootstrap)
   const createWeatherCard = (cityName, weatherItem, index) => {
+    // params use template literal to create HTML from string
     if (index === 0) {
+      // checks for zero index - if yes, show current weather
       return `<div class="mt-3 d-flex justify-content-between">
                         <div>
+                        
                             <h3 class="fw-bold">${cityName} (${
         weatherItem.dt_txt.split(" ")[0]
       })</h3>
@@ -24,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
                               weatherItem.main.humidity
                             }%</h6>
                         </div>
+
                         <div class="text-center me-lg-5">
                             <img src="https://openweathermap.org/img/wn/${
                               weatherItem.weather[0].icon
@@ -56,10 +61,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  // fetch weather using lat/long data
+  // fetch weather using lat/long/cityname parameters
   const getWeatherDetails = (cityName, latitude, longitude) => {
     const weatherURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${owmAPI}`;
-
     fetch(weatherURL)
       .then((response) => response.json())
       .then((data) => {
@@ -77,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
           }
           return false;
         });
-
         cityInput.value = "";
         currentWeatherDiv.innerHTML = "";
         daysForecastDiv.innerHTML = "";
@@ -114,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("An error occurred while fetching the coordinates!");
       });
   };
-
+  // save search to localStorage
   const saveCity = (newCity) => {
     const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
 
@@ -124,6 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
+  // buttons + event listeners
   searchButton.addEventListener("click", () => {
     const cityName = cityInput.value.trim();
     getCityCoordinates(cityName);
@@ -131,5 +135,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const showCities = () => {
     const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
-  };
+    const cityButtonsContainer = document.getElementById("city-buttons-container");
+    cityButtonsContainer.innerHTML
+
+    });
 });
