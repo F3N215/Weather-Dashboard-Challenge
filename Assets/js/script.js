@@ -127,25 +127,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 });
-const showCities = () => {
-  const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
-  const cityButtonsContainer = document.getElementById(
-    "city-buttons-container"
-  );
-  cityButtonsContainer.innerHTML = ""; // clear search
 
-  prevCities.forEach((city) => {
-    const cityButton = document.createElement("button");
-    cityButton.textContent = city;
-    cityButton.classList.add("btn", "btn-secondary", "me-2");
-    cityButtonsContainer.appendChild(cityButton);
+// const showCities = () => {
+//   const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
+//   const cityButtonsContainer = document.getElementById(
+//     "city-buttons-container"
+//   );
+//   cityButtonsContainer.innerHTML = ""; // clear search
 
-    // event listener to each city button to get weather details
-    cityButton.addEventListener("click", () => {
-      getCityCoordinates(city);
-    });
-  });
-};
+//   prevCities.forEach((city) => {
+//     const cityButton = document.createElement("button");
+//     cityButton.textContent = city;
+//     cityButton.classList.add("btn", "btn-secondary", "me-2");
+//     cityButtonsContainer.appendChild(cityButton);
 
-// Call on page load
-showCities();
+//     // event listener to each city button to get weather details
+//     cityButton.addEventListener("click", () => {
+//       getCityCoordinates(city);
+//     });
+//   });
+// };
+
+// // Call on page load
+// showCities();
