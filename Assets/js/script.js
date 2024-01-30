@@ -117,16 +117,16 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("An error occurred while fetching the coordinates!");
       });
   };
-  // save search to localStorage
-  const saveCity = (newCity) => {
-    const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
-
-    if (!prevCities.includes(newCity)) {
-      prevCities.push(newCity);
-      localStorage.setItem("prevCities", JSON.stringify(prevCities));
-    }
-  };
 });
+// // save search to localStorage
+// const saveCity = (newCity) => {
+//   const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
+
+//   if (!prevCities.includes(newCity)) {
+//     prevCities.push(newCity);
+//     localStorage.setItem("prevCities", JSON.stringify(prevCities));
+//   }
+// };
 
 // const showCities = () => {
 //   const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
