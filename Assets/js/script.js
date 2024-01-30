@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function ()) {
   // fully load HTML first
 
   const cityInput = document.querySelector("#city-input");
@@ -126,17 +126,18 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem("prevCities", JSON.stringify(prevCities));
     }
   };
+};
 
   // buttons + event listeners
-  searchButton.addEventListener("click", () => {
-    const cityName = cityInput.value.trim();
-    getCityCoordinates(cityName);
-  });
+  // searchButton.addEventListener("click", () => {
+  //   const cityName = cityInput.value.trim();
+  //   getCityCoordinates(cityName);
+  // });
 
-  const showCities = () => {
-    const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
-    const cityButtonsContainer = document.getElementById("city-buttons-container");
-    cityButtonsContainer.innerHTML
+  // const showCities = () => {
+  //   const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
+  //   const cityButtonsContainer = document.getElementById("city-buttons-container");
+  //   cityButtonsContainer.innerHTML
 
-    });
-});
+  //   });
+
