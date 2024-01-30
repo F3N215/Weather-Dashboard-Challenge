@@ -126,24 +126,26 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem("prevCities", JSON.stringify(prevCities));
     }
   };
+});
+const showCities = () => {
+  const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
+  const cityButtonsContainer = document.getElementById(
+    "city-buttons-container"
+  );
+  cityButtonsContainer.innerHTML = ""; // clear search
 
-  const showCities = () => {
-    const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
-    const cityButtonsContainer = document.getElementById("city-buttons-container");
-    cityButtonsContainer.innerHTML = ""; // Clear existing content
-  
-    prevCities.forEach((city) => {
-      const cityButton = document.createElement("button");
-      cityButton.textContent = city;
-      cityButton.classList.add("btn", "btn-secondary", "me-2");
-      cityButtonsContainer.appendChild(cityButton);
-  
-      // Add an event listener to each city button to get weather details
-      cityButton.addEventListener("click", () => {
-        getCityCoordinates(city);
-      });
+  prevCities.forEach((city) => {
+    const cityButton = document.createElement("button");
+    cityButton.textContent = city;
+    cityButton.classList.add("btn", "btn-secondary", "me-2");
+    cityButtonsContainer.appendChild(cityButton);
+
+    // event listener to each city button to get weather details
+    cityButton.addEventListener("click", () => {
+      getCityCoordinates(city);
     });
-  };
-  
-  // Call showCities on page load or whenever you want to update the list of city buttons
-  showCities();
+  });
+};
+
+// Call on page load
+showCities();
