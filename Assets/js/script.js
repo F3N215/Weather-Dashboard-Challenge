@@ -65,6 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const getWeatherDetails = (cityName, latitude, longitude) => {
     const weatherURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${owmAPI}`;
     fetch(weatherURL)
+      .then((response) => response.json())
+      .then((data) => {
         const forecastArray = data.list;
         const uniqueForecastDays = new Set();
 
@@ -91,10 +93,11 @@ document.addEventListener("DOMContentLoaded", function () {
             daysForecastDiv.insertAdjacentHTML("beforeend", html);
           }
         });
-      }).catch(() => {
+      })
+      .catch(() => {
         alert("An error occurred while fetching the weather forecast!");
       });
-
+  };
   // get city coordinates
   const getCityCoordinates = () => {
     const cityName = cityInput.value.trim();
@@ -113,39 +116,39 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   };
 
-// const searchButton = document.querySelector("#search-btn");
-searchButton.addEventListener("click", () => 
-  getCityCoordinates());
+  // const searchButton = document.querySelector("#search-btn");
+  searchButton.addEventListener("click", () => getCityCoordinates());
 
-// save search to localStorage
-const saveCity = (newCity) => {
-  const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
+  // save search to localStorage
+  const saveCity = (newCity) => {
+    const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
 
-  if (!prevCities.includes(newCity)) {
-    prevCities.push(newCity);
-    localStorage.setItem("prevCities", JSON.stringify(prevCities));
-  }
-};
+    if (!prevCities.includes(newCity)) {
+      prevCities.push(newCity);
+      localStorage.setItem("prevCities", JSON.stringify(prevCities));
+    }
+  };
 
-const showCities = () => {
-  const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
-  const cityButtonsContainer = document.getElementById(
-    "city-buttons-container"
-  );
-  cityButtonsContainer.innerHTML = ""; // clear search
+  const showCities = () => {
+    const prevCities = JSON.parse(localStorage.getItem("prevCities")) || [];
+    const cityButtonsContainer = document.getElementById(
+      "city-buttons-container"
+    );
+    cityButtonsContainer.innerHTML = ""; // clear search
 
-  prevCities.forEach((city) => {
-    const cityButton = document.createElement("button");
-    cityButton.textContent = city;
-    cityButton.classList.add("btn", "btn-secondary", "me-2");
-    cityButtonsContainer.appendChild(cityButton);
+    prevCities.forEach((city) => {
+      const cityButton = document.createElement("button");
+      cityButton.textContent = city;
+      cityButton.classList.add("btn", "btn-secondary", "me-2");
+      cityButtonsContainer.appendChild(cityButton);
 
-    // event listener to each city button to get weather details
-    cityButton.addEventListener("click", () => {
-      getCityCoordinates(city);
+      // event listener to each city button to get weather details
+      cityButton.addEventListener("click", () => {
+        getCityCoordinates(city);
+      });
     });
-  });
-};
+  };
 
-// Call on page load
-showCities();
+  // Call on page load
+  showCities();
+});
