@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("DOMContentLoaded", function () {
   // fully load HTML first
 
   const cityInput = document.querySelector("#city-input");
